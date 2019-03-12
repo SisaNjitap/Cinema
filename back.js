@@ -2,14 +2,14 @@ const fs = require("fs"); //ajout
 const sqlite3 = require("sqlite3").verbose();
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require('body-parser'); // ajout pour mes commentaires
+const bodyParser = require('body-parser'); // ajout pour mes commentaires + npm install body-parser
 const dbFile = "test.db";
 const db = new sqlite3.Database(dbFile);
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));  //ajout
-app.use(bodyParser.jason());  //ajout
+app.use(bodyParser.json());  //ajout
 
 
 db.serialize(() => {
@@ -78,7 +78,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/comments', function (request, response) {
-    db.run('INSERT INTO comments (comments_name, comments_text, movie_id) VALUES (?,?,?)', request.body.comments_name, request.body.comments_text, request.body.movie_id,function(error,data){
+    db.run('INSERT INTO comments (comments_name, comments_text, movie_id) VALUES (?,?,?)',
+    request.body.comments_name, 
+    request.body.comments_text,
+    request.body.movie_id,
+    function(data){
         response.send(data);
     });
 });
