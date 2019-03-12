@@ -9,11 +9,11 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));  //ajout
-app.use(bodyParser.jason());  //ajout
+app.use(bodyParser.json());  //ajout
 
 
 db.serialize(() => {
-    db.run('CREATE TABLE IF NOT EXISTS movie (movie_id INTEGER PRIMARY KEY AUTOINCREMENT, movie_name VARCHAR(80), movie_year INTEGER, movie_genre VARCHAR(100), movie_director VARCHAR(100), movie_casting VARCHAR(300), movie_time VARCHAR(10), synopsis VARCHAR(2000), movie_img TEXT UNIQUE)');
+    db.run('CREATE TABLE IF NOT EXISTS movie (movie_id INTEGER PRIMARY KEY AUTOINCREMENT, movie_name VARCHAR(80), movie_year INTEGER, movie_genre VARCHAR(100), movie_director VARCHAR(100), movie_casting VARCHAR(300), movie_time VARCHAR(10), synopsis VARCHAR(2000), movie_img TEXT)');
 
     db.run('CREATE TABLE IF NOT EXISTS awards (awards_id INTEGER PRIMARY KEY AUTOINCREMENT, Oscars VARCHAR(1000), Golden_Globes VARCHAR(1000), Screen_Actors_Guild_Awards VARCHAR(500), BAFTA_Awards VARCHAR(500), People_Choice VARCHAR(500), MTV_Movie_Awards VARCHAR(500), Teen_Choice_Awards VARCHAR(500), Festival_De_Cannes VARCHAR(500), Satellite_Awards VARACHAR(500), César VARCHAR(500), movie_id INTEGER, FOREIGN KEY (movie_id) REFERENCES movie (movie_id))');
 
@@ -25,7 +25,7 @@ db.serialize(() => {
 
     db.run('INSERT INTO movie (movie_name, movie_year, movie_genre, movie_director, movie_casting, movie_time, synopsis, movie_img ) VALUES (?,?,?,?,?,?,?,?)', '500 jours ensemble', 2009, 'Drame/Romance', 'Marc Webb', 'Joseph Gordon-Levitt, Zooey Deschanel, Chloë Moretz', '1h35', 'La voix off prévient en ouverture du film : « c\'est l\'histoire d\'un garçon qui rencontre une fille ce n\'est pas une histoire d\'amour ».En dépit de cet avertissement, les deux protagonistes principaux se lancent dans une valse hésitation amoureuse, chacun ayant un regard différent sur leur relation.', 'http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/68/74/89/19139318.jpg');
 
-    db.run('INSERT INTO movie (movie_name, movie_year, movie_genre, movie_director, movie_casting, movie_time, synopsis, movie_img ) VALUES (?,?,?,?,?,?,?,?)', 'Forest Gump', 1994, 'Drame historique', 'Robert Zemeckis', 'Tom Hanks, Robin Wright, Gary Sinise', '2h22', 'Au fil des différents interlocuteurs qui viennent s\'asseoir tour à tour à côté de lui sur un banc, Forrest Gump raconte la fabuleuse histoire de sa vie. Sa vie est à l\'image d\'une plume qui se laisse porter par le vent, tout comme Forrest se laisse porter par les événements qu\'il traverse dans l\'Amérique de la seconde moitié du 20e siècle.', 'https://images-na.ssl-images-amazon.com/images/I/41Al9falobL._SY450_.jpg');
+    db.run('INSERT INTO movie (movie_name, movie_year, movie_genre, movie_director, movie_casting, movie_time, synopsis, movie_img ) VALUES (?,?,?,?,?,?,?,?)', 'Forrest Gump', 1994, 'Drame historique', 'Robert Zemeckis', 'Tom Hanks, Robin Wright, Gary Sinise', '2h22', 'Au fil des différents interlocuteurs qui viennent s\'asseoir tour à tour à côté de lui sur un banc, Forrest Gump raconte la fabuleuse histoire de sa vie. Sa vie est à l\'image d\'une plume qui se laisse porter par le vent, tout comme Forrest se laisse porter par les événements qu\'il traverse dans l\'Amérique de la seconde moitié du 20e siècle.', 'https://images-na.ssl-images-amazon.com/images/I/41Al9falobL._SY450_.jpg');
 
     db.run('INSERT INTO movie (movie_name, movie_year, movie_genre, movie_director, movie_casting, movie_time, synopsis, movie_img ) VALUES (?,?,?,?,?,?,?,?)', 'Avengers : Infinity War', 2018, 'Drame/Super Héros', 'Anthony et Joe Russo', 'Josh Brolin, Robert Downey Jr, Chris Evans', '2h29', 'Thanos a commencé à recueillir les six Pierres d\'Infinité : la Pierre du Pouvoir, la Pierre de l\'Espace, la Pierre de Réalité, la Pierre de l\'Âme, la Pierre du Temps et la Pierre de l\'Esprit. Son objectif est de réunir ces six artefacts sur le Gant d\'Infinité, forgé jadis par le nain Eitri sur Nidavellir, afin d\'utiliser leur immense puissance pour détruire la moitié de la population de l\'Univers et rétablir ainsi un certain équilibre', 'https://static.fnac-static.com/multimedia/Images/3A/3A/EE/7B/8121914-1505-1505-1/tsp20180503150322/Affiche-Maxi-Avengers-Infinity-War-One-Sheet-61x91-5cm.jpg');
 
