@@ -1,11 +1,16 @@
+const fs = require("fs"); //ajout
 const sqlite3 = require("sqlite3").verbose();
 const express = require("express");
 const cors = require("cors");
-
+const bodyParser = require('body-parser'); // ajout pour mes commentaires
 const dbFile = "test.db";
 const db = new sqlite3.Database(dbFile);
 const app = express();
+
 app.use(cors());
+app.use(bodyParser.urlencoded({extended: false}));  //ajout
+app.use(bodyParser.jason());  //ajout
+
 
 db.serialize(() => {
     db.run('CREATE TABLE IF NOT EXISTS movie (movie_id INTEGER PRIMARY KEY AUTOINCREMENT, movie_name VARCHAR(80), movie_year INTEGER, movie_genre VARCHAR(100), movie_director VARCHAR(100), movie_casting VARCHAR(300), movie_time VARCHAR(10), synopsis VARCHAR(2000), movie_img TEXT UNIQUE)');
@@ -70,9 +75,23 @@ app.get('/', function (req, res) {
         res.send(data);
     });
 
-    app.post('/comments', function (request, response) {
-
-        db.run('INSERT INTO comments (comments_name, comments_text, movie_id) VALUES (?,?,?)', request.body.comments_name, request.body.comments_text, request.body.movie_id)
-    })
 });
-//d
+
+app.post('/comments', function (request, response) {
+    db.run('INSERT INTO comments (comments_name, comments_text, movie_id) VALUES (?,?,?)', request.body.comments_name, request.body.comments_text, request.body.movie_id,function(error,data){
+        response.send(data);
+    });
+});
+
+app.get('/movies', function(request, response){
+    db.all('SELECT * FROM movie WHERE movie_id', function (error, data) {
+        response.send(data);
+    });
+})
+
+
+app.get('/awards', function(request, response){
+    db.all('SELECT * FROM awards WHERE awards_id', function(error,data){
+        response.send(data);
+    });
+});
