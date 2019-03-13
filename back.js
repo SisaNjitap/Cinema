@@ -7,9 +7,10 @@ const dbFile = "test.db";
 const db = new sqlite3.Database(dbFile);
 const app = express();
 
-app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));  //ajout
 app.use(bodyParser.json());  //ajout
+
+app.use(cors());
 
 
 db.serialize(() => {
@@ -78,12 +79,12 @@ app.get('/', function (req, res) {
 });
 
 app.post('/comments', function (request, response) {
-    db.run('INSERT INTO comments (comments_name, comments_text, movie_id) VALUES (?,?,?)',
+    db.run('INSERT INTO comments (comments_name, comments_text) VALUES (?,?)',
     request.body.comments_name, 
     request.body.comments_text,
-    request.body.movie_id,
+    //request.body.movie_id,
     function(data){
-        response.send(data);
+        console.log(request.body.comments_name);
     });
 });
 

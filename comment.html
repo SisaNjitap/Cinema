@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Formulaire commentaire</title>
+</head>
+<body>
+    
+    <form action="http://localhost:3000/comments" method="POST">
+        <label for="name">Nom du film </label>
+        <input id="name" type="text" name="name">
+        <input type="submit" value="Enregistrer">
+        <textarea textarea="" placeholder="Comment *" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea>
+			<label for="comment" data-help="Escribe algo! Lo primero que se te ocurra">Comment</label>
+    
+    </form>
+
+</body>
+</html>

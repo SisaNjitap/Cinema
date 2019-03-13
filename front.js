@@ -6,19 +6,17 @@ $.get('http:/localhost:3000/movies',function (response){
     });
 });
 
-    function send() {
+/*     function send() {
     const inputObject = document.getElementById('object').value;
     const inputCom = document.getElementById('commentaire').value;
+    var input = {comments_name : inputObject, 
+        comments_text : inputCom};
+
 
     $.post('http://localhost:3000/comments',
-        {comments_name: inputObject},
-        {comments_text: inputCom},
+        {input},
         function(response){
-            console.log(response)
+          //  console.log(response)
     });
 };
-/* 
-var = 
-for (i = 0; i< movie.length; i++){
-
-} */
+ */
